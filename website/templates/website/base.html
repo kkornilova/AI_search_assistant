@@ -1,0 +1,36 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://necolas.github.io/normalize.css/latest/normalize.css">
+  <link rel="stylesheet" href="{% static "website/base.css" %}">
+  {% block css_files %}{% endblock %}
+</head>
+<body>
+  <header id="main-navigation">
+    <h1><a href="{% url "website:index" %}">Recipes</a></h1>
+    <div id="header-links">
+      <a id="home" href="{% url "website:index" %}">HOME</a>
+      <a href="{% url "website:index" %}">SEARCH</a>
+      <a href="{% url "website:index" %}">ABOUT</a>
+    </div>
+    <nav>
+      <a id="profile" href="{% url "website:index" %}">Profile</a>
+    </nav>
+  </header>
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+<footer>
+  <p id="footer">Footer</p>
+</footer id="footer">
+</body>
+</html>
