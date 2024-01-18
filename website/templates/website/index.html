@@ -1,13 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recipes</title>
-</head>
-<body>
+{% extends "website/base.html" %}
+{% load static %}
+
+{% block title %} 
+Home
+{% endblock %} 
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static "website/index.css" %}" />
+{% endblock %}
+
+{% block content %}
+
+<div class="title-section"> 
+    <h1 id="title">Taste  <span class="highlight-span">&</span>  delight</h1>
+    <p id="tagline">Unleash Flavorful Moments</p>
+    <button type="button">Find a Recipe</button> 
+</div> 
+
+<div class="image-container">
+    <img src="{% static "website/images/pancakes.jpg" %}" alt="pancakes" />
+</div>
+
+<h2 class="sub_headline">Find Inspiration From Our Offers</h2>
+
+<div class="offer-section">
+   
     {%for recipe in recipes %}
-    <p>{{ recipe.title}}</p>
+    <div class="offer">
+        <p>{{ recipe.title}}</p>
+        <img src={{ recipe.image }} alt="dish">
+    </div>
     {% endfor %}
+   
+</div>
+{% endblock %}
 </body>
 </html>

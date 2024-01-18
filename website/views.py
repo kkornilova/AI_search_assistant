@@ -14,7 +14,7 @@ def index(request):
 
     params = {"apiKey": API_KEY,
               "cuisine": "italian, greek",
-              "number": "2"}
+              "number": "3"}
 
     response = requests.get(URL, params=params).json()
     recipes = response["results"]
