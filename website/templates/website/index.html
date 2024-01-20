@@ -11,28 +11,34 @@ Home
 
 {% block content %}
 
-<div class="title-section"> 
-    <h1 id="title">Taste  <span class="highlight-span">&</span>  delight</h1>
-    <p id="tagline">Unleash Flavorful Moments</p>
-    <button type="button">Find a Recipe</button> 
-</div> 
+    <div class="title-section"> 
+        <h1 id="title">Taste  <span class="highlight-span">&</span>  delight</h1>
+        <p id="tagline">Unleash Flavorful Moments</p>
+    </div> 
+    <a id="button-link" href="{% url "website:search_all_recipes" %}">Find a Recipe</a>
 
-<div class="image-container">
-    <img src="{% static "website/images/pancakes.jpg" %}" alt="pancakes" />
-</div>
 
-<h2 class="sub_headline">Find Inspiration From Our Offers</h2>
-
-<div class="offer-section">
-   
-    {%for recipe in recipes %}
-    <div class="offer">
-        <p>{{ recipe.title}}</p>
-        <img src={{ recipe.image }} alt="dish">
+    <div class="image-container">
+        <img src="{% static "website/images/pancakes.jpg" %}" alt="pancakes" />
     </div>
-    {% endfor %}
-   
-</div>
+
+    <h2 class="sub_headline">Find Inspiration From Our Offers</h2>
+
+    <div class="offer-section">
+        {%for recipe in recipes %}
+        <div class="offer-title">
+            <h3>{{ recipe.title}}</h3>
+        </div>
+        {% endfor %}
+
+    </div>
+
+    <div class="offer-section">
+        {%for recipe in recipes %}
+        <div class="offer-image">
+            <img src={{ recipe.image }} alt="dish">
+        </div>
+        {% endfor %}
+    </div>
+
 {% endblock %}
-</body>
-</html>

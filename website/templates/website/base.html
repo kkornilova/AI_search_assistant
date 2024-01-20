@@ -18,7 +18,7 @@
     <h1><a href="{% url "website:index" %}">Recipes</a></h1>
     <div id="header-links">
       <a id="home" href="{% url "website:index" %}">HOME</a>
-      <a href="{% url "website:index" %}">SEARCH</a>
+      <a id="search" href="{% url "website:search_all_recipes" %}">SEARCH</a>
       <a href="{% url "website:index" %}">ABOUT</a>
     </div>
     <nav>
@@ -33,6 +33,6 @@
   <div>
   <p id="footer">Footer</p>
   </div>
-</footer id="footer">
+</footer>
 </body>
 </html>

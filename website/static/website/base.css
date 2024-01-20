@@ -40,10 +40,6 @@ main {
 
 }
 
-#home {
-  border-bottom: 1px solid #f97664;
-  
-}
 
 #profile {
   color: #041434;
@@ -67,3 +63,9 @@ main {
   color: #222222;
   border-bottom: 1px solid #4a556c;
 } 
+
+
+footer div p{
+  border-top: 1px solid #dbdee6;
+  height: 90px;
+}

@@ -19,3 +19,7 @@ def index(request):
     response = requests.get(URL, params=params).json()
     recipes = response["results"]
     return render(request, 'website/index.html', {"recipes": recipes})
+
+
+def search_all_recipes(request):
+    return render(request, 'website/search_all_recipes.html')
