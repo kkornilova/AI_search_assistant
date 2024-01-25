@@ -8,3 +8,95 @@ Search
 {% block css_files %}
   <link rel="stylesheet" href="{% static "website/search_all_recipes.css" %}" />
 {% endblock %}
+
+{% block content %}
+  <div class="title-section"> 
+    <h1 id="title">Find What <span class="highlight-span">Suits</span> You</h1>
+    <p id="tagline">Unleash Flavorful Moments</p>
+  </div> 
+
+  <div class="btn-group">
+
+    <div class="dropdown">
+      <button class="btn dropdown-toggle meal-type-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Meal Type
+      </button>
+      <ul class="dropdown-menu">
+        {% for meal_type in meal_types%}
+        <li><a class="dropdown-item" href="{% url "website:index" %}">{{ meal_type }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+
+      <div class="dropdown">
+        <button class="btn dropdown-toggle cuisine-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Cuisine
+        </button>
+        <ul class="dropdown-menu">
+          {% for cuisine in cuisines%}
+          <li><a class="dropdown-item" href="{% url "website:index" %}">{{ cuisine }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+
+        <div class="dropdown">
+          <button class="btn dropdown-toggle diet-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Diet
+          </button>
+          <ul class="dropdown-menu">
+            {% for diet in diet%}
+            <li><a class="dropdown-item" href="{% url "website:index" %}">{{ diet }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <div class="dropdown">
+          <button class="btn dropdown-toggle diet-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Intolerance
+          </button>
+          <ul class="dropdown-menu">
+            {% for item in intolerance%}
+            <li><a class="dropdown-item" href="{% url "website:index" %}">{{ item }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+        <button type="button" class="filter-btn">Filter</button>
+  </div>
+
+  <div class="recipes-group">
+      {% for recipe in recipes %}
+      <div class="card mb-3">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src={{ recipe.image }} class="img-fluid rounded-start" alt="dish">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{ recipe.title }}</h5>
+              <div class="card-text">
+                <div class="dropdown">
+                  <button class="btn dropdown-toggle ingrd-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  {{ recipe.ingredients|length}}  Ingredients</button>
+                    <ul class="dropdown-menu">
+                    {% for recipe in recipes%}
+                      <li>{{ recipe.ingredients }}</li>
+                    {% endfor %}
+                    </ul>
+                  <span class="pipe">|</span>
+                </div>
+                <p>🥗{{ recipe.servings }} servings  ⏱️{{recipe.ready_in_minutes}} minutes</p>
+              </div>
+            </div>
+            <button type="button" class="btn-add-to-book">Add to recipe book</button>
+          </div>
+
+              {% comment %} <p class="card-text"><small class="text-muted"></small></p> {% endcomment %}
+              
+        </div>
+      </div>
+      {% endfor %}
+  </div>
+
+{% endblock %} 
+
+
