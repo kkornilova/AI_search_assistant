@@ -51,7 +51,8 @@ def search_all_recipes(request):
         recipes_details = []
 
         for recipe in recipes:
-            recipe_detail = {"title": recipe["title"],
+            recipe_detail = {"id": recipe["id"],
+                             "title": recipe["title"],
                              "image": recipe["image"],
                              "ready_in_minutes": recipe["readyInMinutes"],
                              "servings": recipe["servings"],
@@ -63,7 +64,9 @@ def search_all_recipes(request):
             ingredients_details = []
             for ingredient in recipe["ingredients"]:
                 ingredients_details.append(
-                    {ingredient["nameClean"]: {ingredient["amount"]: ingredient["unit"]}})
+                    {"ingredient_name": ingredient["nameClean"],
+                     "amount": ingredient["amount"],
+                     "unit": ingredient["unit"]})
             recipe["ingredients"] = ingredients_details
 
     return render(request, 'website/search_all_recipes.html', {"meal_types": meal_types,

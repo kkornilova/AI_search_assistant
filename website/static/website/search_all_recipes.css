@@ -42,7 +42,7 @@ div.btn-group {
 
 }
 
-.dropdown-menu {
+.scroll-menu {
   overflow-y: scroll;
   height: 200px;
 
@@ -139,4 +139,49 @@ div.btn-group {
   border: none;
   color: #6a758a;
   padding: 0%;
+}
+
+.ingrd-menu {
+  padding: 30px 30px;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  color: #4a556c;
+  font-size: 12px;
+  
+
+
+
+}
+
+.ingr-title {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  width: 350px;
+
+}
+
+.ingrd-item {
+  margin-bottom: 10px;
+  display: inline-flex;
+  width: 100%;
+
+}
+
+.underscore {
+  flex-grow: 1;
+  border-bottom: 1px solid #dbdee6;
+  height: 15px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.btn-go-to-recipe {
+  width: 100%;
+  margin-top: 15px;
+  background-color: white;
+  color: #4a556c;
+  border: 1px solid #041434;
+  padding: 10px;
+  border-radius: 2px;
+
 }

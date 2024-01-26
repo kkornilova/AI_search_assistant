@@ -21,7 +21,7 @@ Search
       <button class="btn dropdown-toggle meal-type-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
         Meal Type
       </button>
-      <ul class="dropdown-menu">
+      <ul class="dropdown-menu scroll-menu">
         {% for meal_type in meal_types%}
         <li><a class="dropdown-item" href="{% url "website:index" %}">{{ meal_type }}</a></li>
         {% endfor %}
@@ -32,7 +32,7 @@ Search
         <button class="btn dropdown-toggle cuisine-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
           Cuisine
         </button>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu scroll-menu">
           {% for cuisine in cuisines%}
           <li><a class="dropdown-item" href="{% url "website:index" %}">{{ cuisine }}</a></li>
           {% endfor %}
@@ -43,7 +43,7 @@ Search
           <button class="btn dropdown-toggle diet-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             Diet
           </button>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu scroll-menu">
             {% for diet in diet%}
             <li><a class="dropdown-item" href="{% url "website:index" %}">{{ diet }}</a></li>
             {% endfor %}
@@ -54,7 +54,7 @@ Search
           <button class="btn dropdown-toggle diet-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             Intolerance
           </button>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu scroll-menu">
             {% for item in intolerance%}
             <li><a class="dropdown-item" href="{% url "website:index" %}">{{ item }}</a></li>
             {% endfor %}
@@ -77,10 +77,12 @@ Search
                 <div class="dropdown">
                   <button class="btn dropdown-toggle ingrd-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   {{ recipe.ingredients|length}}  Ingredients</button>
-                    <ul class="dropdown-menu">
-                    {% for recipe in recipes%}
-                      <li>{{ recipe.ingredients }}</li>
-                    {% endfor %}
+                    <ul class="dropdown-menu ingrd-menu">
+                      <p class="ingr-title"> INGREDIENTS </p>
+                      {% for ingredient in recipe.ingredients%}
+                      <li class="ingrd-item">{{ ingredient.ingredient_name|capfirst  }}<span class="underscore"></span> {{ ingredient.amount|cut:".0"}} {{ ingredient.unit|lower}}</li>
+                      {% endfor %}
+                      <button type="button" class="btn-go-to-recipe">Go to recipe page</button>
                     </ul>
                   <span class="pipe">|</span>
                 </div>
