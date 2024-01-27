@@ -56,14 +56,15 @@ img {
     height: 100%;
 }
 
-.sub_headline {
+h2.sub_headline {
     text-align: center;
-    color: #041434;
+    color:  #f97664;
     text-transform: uppercase;
     font-weight: 600;
     font-family: "Inter", sans-serif;
     margin-bottom: 120px;
     margin-top: 180px;
+    font-size: 24px;
 
 }
 
@@ -71,26 +72,29 @@ img {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 30px;
+    margin: 0 50px;
 
 
 }
 .offer-title {
-    color: #4a556c;
-    /* color: #6a758a; */
-    font-weight: 400;
-    font-family: "Inter", sans-serif;
     height: 100px; 
     width: 350px;
-    /* margin-bottom: 90px; */
     text-align: center;
-    /* margin-right: 10px; */
 
 }
+.card-title {
+    color: #041434;
+    font-weight: 600;
+    font-family: "Inter", sans-serif;
+    font-size: 20px;
+    text-decoration: none;
+}
 
+.card-title:hover {
+    text-decoration: 1px underline;
+}
 .offer-image {
     object-fit: cover;
-    width: 30%;
-    /* height: 100%; */
+    width: 28%;
     margin-bottom: 100px;
 }

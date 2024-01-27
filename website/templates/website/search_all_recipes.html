@@ -72,7 +72,8 @@ Search
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">{{ recipe.title }}</h5>
+              <a class="card-title" href="{% url "website:recipe-page" recipe.id %}">{{ recipe.title }}</a>
+
               <div class="card-text">
                 <div class="dropdown">
                   <button class="btn dropdown-toggle ingrd-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -82,14 +83,14 @@ Search
                       {% for ingredient in recipe.ingredients%}
                       <li class="ingrd-item">{{ ingredient.ingredient_name|capfirst  }}<span class="underscore"></span> {{ ingredient.amount|cut:".0"}} {{ ingredient.unit|lower}}</li>
                       {% endfor %}
-                      <button type="button" class="btn-go-to-recipe">Go to recipe page</button>
+                      <a class="btn btn-go-to-recipe" href="{% url "website:recipe-page" recipe.id %}" role="button">Go to recipe page</a>
                     </ul>
                   <span class="pipe">|</span>
                 </div>
                 <p>🥗{{ recipe.servings }} servings  ⏱️{{recipe.ready_in_minutes}} minutes</p>
               </div>
             </div>
-            <button type="button" class="btn-add-to-book">Add to recipe book</button>
+            <a class="btn add-recipe" href="#" role="button">Add to recipe book</a>
           </div>
 
               {% comment %} <p class="card-text"><small class="text-muted"></small></p> {% endcomment %}

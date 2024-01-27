@@ -14,7 +14,7 @@
   font-weight: 600;
   font-size: 56px;
   color: #041434;
-  /* text-transform: uppercase; */
+
 }
 
 
@@ -91,31 +91,36 @@ div.btn-group {
   display: grid;
   justify-content: center;
   gap: 30px;
+  margin-top: 90px;
 
 }
 
 .card {
   width: 750px;
   border: none;
-
   
 }
 
 
 .card-title {
+  text-decoration: none;
   color: #041434;
   font-family: "Inter", sans-serif;
   font-weight: 600;
-  padding-bottom: 10px;
+  font-size: 20px;
 
 }
 
+.card-title:hover {
+  text-decoration: 1px underline;
+}
+
 .card-text {
-  color: #6a758a;
+  color: #4a556c;
   font-family: "Inter", sans-serif;
   font-size: 14px;
   display: flex;
-  /* justify-content: space-between; */
+  margin-top: 20px;
 
 }
 
@@ -137,8 +142,9 @@ div.btn-group {
 }
 .ingrd-btn {
   border: none;
-  color: #6a758a;
+  color: #4a556c;
   padding: 0%;
+  font-size: 15px;
 }
 
 .ingrd-menu {
@@ -179,9 +185,34 @@ div.btn-group {
   width: 100%;
   margin-top: 15px;
   background-color: white;
-  color: #4a556c;
+  color: #041434;
+
   border: 1px solid #041434;
   padding: 10px;
   border-radius: 2px;
 
+}
+
+.btn-go-to-recipe:hover {
+  color: #041434;
+  border: 1px solid #041434;
+  font-weight: 600;
+}
+
+.add-recipe {
+  width: 50%;
+  margin-top: 10px;
+  margin-left: 15px;
+  background-color: white;
+  border: 1px solid #6a758a;
+  color: #6a758a;
+  padding: 5px;
+  border-radius: 2px;
+
+}
+
+.add-recipe:hover {
+  color: #4a556c;
+  border: 1px solid #4a556c;
+  font-weight: 600;
 }

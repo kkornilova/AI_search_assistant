@@ -27,7 +27,7 @@ Home
     <div class="offer-section">
         {%for recipe in recipes %}
         <div class="offer-title">
-            <h3>{{ recipe.title}}</h3>
+            <a class="card-title" href="{% url "website:recipe-page" recipe.id %}">{{ recipe.title }}</a>
         </div>
         {% endfor %}
 

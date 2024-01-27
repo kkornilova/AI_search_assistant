@@ -74,3 +74,7 @@ def search_all_recipes(request):
                                                                "diet": diet,
                                                                "intolerance": intolerance,
                                                                "recipes": recipes_details})
+
+
+def recipe_page(request, slug):
+    return render(request, "website/recipe.html")
