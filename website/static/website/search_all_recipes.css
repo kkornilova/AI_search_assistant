@@ -185,17 +185,16 @@ div.btn-group {
   width: 100%;
   margin-top: 15px;
   background-color: white;
-  color: #041434;
-
-  border: 1px solid #041434;
+  color:  #4a556c;
+  border: 1px solid #4a556c;
   padding: 10px;
   border-radius: 2px;
 
 }
 
 .btn-go-to-recipe:hover {
-  color: #041434;
-  border: 1px solid #041434;
+  color: #f97664;
+  border: 1px solid #f97664;
   font-weight: 600;
 }
 

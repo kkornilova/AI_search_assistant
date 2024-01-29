@@ -19,26 +19,25 @@ Home
 
 
     <div class="image-container">
-        <img src="{% static "website/images/pancakes.jpg" %}" alt="pancakes" />
+        <img class="pancakes-img"src="{% static "website/images/pancakes.jpg" %}" alt="pancakes" />
     </div>
 
     <h2 class="sub_headline">Find Inspiration From Our Offers</h2>
 
-    <div class="offer-section">
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
         {%for recipe in recipes %}
-        <div class="offer-title">
-            <a class="card-title" href="{% url "website:recipe-page" recipe.id %}">{{ recipe.title }}</a>
-        </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src={{ recipe.image }} class="card-img-top" alt="dish">
+                <div class="card-body">
+                    <a class="card-title" href="{% url "website:recipe-page" recipe.title|slugify %}">{{ recipe.title }}</a>
+                </div>
+                    <a class="btn btn-go-to-recipe" href="{% url "website:recipe-page" recipe.title|slugify %}">Go to recipe page</a>
+                </div>
+            </div>
         {% endfor %}
 
-    </div>
-
-    <div class="offer-section">
-        {%for recipe in recipes %}
-        <div class="offer-image">
-            <img src={{ recipe.image }} alt="dish">
-        </div>
-        {% endfor %}
-    </div>
+      </div>
 
 {% endblock %}
