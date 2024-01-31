@@ -1,0 +1,4 @@
+<p class="ingr-title"> INGREDIENTS </p>
+{% for ingredient in recipe.ingredients%}
+    <li class="ingrd-item">{{ ingredient.ingredient_name|capfirst  }}<span class="underscore"></span> {{ ingredient.amount|cut:".0"}} {{ ingredient.unit|lower}}</li>
+{% endfor %}

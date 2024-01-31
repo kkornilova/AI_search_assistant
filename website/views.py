@@ -1,25 +1,10 @@
 from django.shortcuts import render
 
-import os
-from dotenv import load_dotenv
-
-import requests
-
-import json
-
-load_dotenv()
+from website.utils import extract_recipe_ingredients, extract_recipe_info, get_random_recipes, get_recipe_nutrition
 
 
 def index(request):
-    URL = os.getenv("URL")
-    API_KEY = os.getenv("API_KEY")
-
-    params = {"apiKey": API_KEY,
-              #   "cuisine": "italian, greek",
-              "number": "3"}
-
-    response = requests.get(URL, params=params).json()
-    recipes = response["results"]
+    recipes = get_random_recipes(15)
     return render(request, 'website/index.html', {"recipes": recipes})
 
 
@@ -35,39 +20,16 @@ def search_all_recipes(request):
     intolerance = ["Dairy", "Egg", "Gluten", "Grain", "Peanut", "Seafood",
                    "Sesame", "Shellfish", "Soy", "Sulfite", "Tree Nut", "Wheat"]
 
-    # URL_RANDOM = os.getenv("URL_RANDOM")
-    # API_KEY = os.getenv("API_KEY")
+    recipes = get_random_recipes(15)
+    recipes_details = []
 
-    # params = {"apiKey": API_KEY,
-    #           "number": "2"}
+    for recipe in recipes:
+        recipe_detail = extract_recipe_info(recipe)
+        recipes_details.append(recipe_detail)
 
-    # response = requests.get(URL_RANDOM, params=params).json()
-    # # print(response)
-    # recipes = response["recipes"]
-    with open("recipes1.txt") as file:
-        data = file.read()
-        result = json.loads(data)
-        recipes = result["recipes"]
-        recipes_details = []
-
-        for recipe in recipes:
-            recipe_detail = {"id": recipe["id"],
-                             "title": recipe["title"],
-                             "image": recipe["image"],
-                             "ready_in_minutes": recipe["readyInMinutes"],
-                             "servings": recipe["servings"],
-                             "ingredients": recipe["extendedIngredients"]
-                             }
-            recipes_details.append(recipe_detail)
-
-        for recipe in recipes_details:
-            ingredients_details = []
-            for ingredient in recipe["ingredients"]:
-                ingredients_details.append(
-                    {"ingredient_name": ingredient["nameClean"],
-                     "amount": ingredient["amount"],
-                     "unit": ingredient["unit"]})
-            recipe["ingredients"] = ingredients_details
+    for recipe in recipes_details:
+        ingredients_details = extract_recipe_ingredients(recipe)
+        recipe["ingredients"] = ingredients_details
 
     return render(request, 'website/search_all_recipes.html', {"meal_types": meal_types,
                                                                "cuisines": cuisines,
@@ -76,5 +38,8 @@ def search_all_recipes(request):
                                                                "recipes": recipes_details})
 
 
-def recipe_page(request, slug):
-    return render(request, "website/recipe.html")
+def recipe_page(request, title, id):
+    recipe_nutrition = get_recipe_nutrition(id)
+    title_formatted = title.replace("-", " ")
+    return render(request, "website/recipe.html", {"values": recipe_nutrition,
+                                                   "title": title_formatted})

@@ -1,1 +1,35 @@
-{% include "website/base.html" %}
+{% extends "website/base.html" %}
+{% load static %}
+
+{% block title %} 
+{{title|title}}
+{% endblock %} 
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static "website/recipe.css" %}" />
+{% endblock %}
+
+{% block content %}
+    <div class="title-section">
+        <h1  class="title">{{ title|title }}</h1>
+    </div>
+    
+    <p class="value-header">FOOD ENERGY PER SERVING</p>
+
+    <div class="value-info">    
+        {% for value, qnt in values.items %}
+        <div class="value">
+            <p class="value-desc"> {{ value|upper }} </p>
+            <p class="value-qnt"> {{ qnt|cut:"g" }} </p>
+            {% if value == "calories"%}
+                <p class="value-desc">KCAL</p>
+            {% else %}
+                <p class="value-desc">GRAMM</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% include "website/includes/ingredients.html" %}
+
+
+{% endblock %}

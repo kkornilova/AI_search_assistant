@@ -31,9 +31,9 @@ Home
                 <div class="card h-100">
                     <img src={{ recipe.image }} class="card-img-top" alt="dish">
                 <div class="card-body">
-                    <a class="card-title" href="{% url "website:recipe-page" recipe.title|slugify %}">{{ recipe.title }}</a>
+                    <a class="card-title" href="{% url "website:recipe-page" title=recipe.title|slugify id=recipe.id %}">{{ recipe.title }}</a>
                 </div>
-                    <a class="btn btn-go-to-recipe" href="{% url "website:recipe-page" recipe.title|slugify %}">Go to recipe page</a>
+                    <a class="btn btn-go-to-recipe" href="{% url "website:recipe-page" title=recipe.title|slugify id=recipe.id %}">Go to recipe page</a>
                 </div>
             </div>
         {% endfor %}
