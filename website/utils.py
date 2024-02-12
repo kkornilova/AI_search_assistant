@@ -7,6 +7,9 @@ load_dotenv()
 BASE_URL = os.getenv("BASE_URL")
 RANDOM_URL = os.getenv("RANDOM_URL")
 NUTRITION_URL = os.getenv("NUTRITION_URL")
+RECIPE_INFO_URL = os.getenv("RECIPE_INFO_URL")
+INSTRUCTIONS_URL = os.getenv("INSTRUCTIONS_URL")
+SIMILAR_URL = os.getenv("SIMILAR_URL")
 
 API_KEY = os.getenv("API_KEY")
 
@@ -18,6 +21,14 @@ def get_random_recipes(quantity):
     recipes = response["recipes"]
 
     return recipes
+
+
+def get_recipe_info(recipe_id):
+    params = {"apiKey": API_KEY}
+    response = requests.get(BASE_URL + recipe_id +
+                            RECIPE_INFO_URL, params=params).json()
+
+    return response
 
 
 def get_recipe_nutrition(recipe_id):
@@ -49,8 +60,17 @@ def extract_recipe_ingredients(recipe):
 
     for ingredient in recipe["ingredients"]:
         ingredients_details.append({
-            "ingredient_name": ingredient["nameClean"],
+            "ingredient_name": ingredient["name"],
             "amount": ingredient["amount"],
             "unit": ingredient["unit"]
         })
     return ingredients_details
+
+
+def get_recipe_instructions(recipe_id):
+    params = {"apiKey": API_KEY}
+    response = requests.get(BASE_URL + recipe_id +
+                            INSTRUCTIONS_URL, params=params).json()
+    steps = response[0]["steps"]
+
+    return steps

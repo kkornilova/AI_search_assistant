@@ -33,12 +33,8 @@
 
 div.btn-group {
   display: flex;
-  /* justify-content: space-between; */
   justify-content: center;
-  
   margin: 50px 150px;
-  /* margin-bottom: 400px; */
-
 
 }
 
@@ -47,7 +43,6 @@ div.btn-group {
   height: 200px;
 
 }
-
 
 
 .dropdown-toggle {
@@ -137,9 +132,8 @@ div.btn-group {
   margin: 15px 10px 10px 15px;
   border-radius: 2px;
   
-
-
 }
+
 .ingrd-btn {
   border: none;
   color: #4a556c;
@@ -154,9 +148,6 @@ div.btn-group {
   color: #4a556c;
   font-size: 12px;
   
-
-
-
 }
 
 .ingr-title {
@@ -214,4 +205,55 @@ div.btn-group {
   color: #4a556c;
   border: 1px solid #4a556c;
   font-weight: 600;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.fieldWrapper {
+  margin-right: 20px;
+}
+
+
+
+.form-item {
+  height: 35px;
+  color: #041434;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  border: 1px solid #dbdee6;
+  padding: 5px;
+  border-radius: 4px;
+  width: 150px;
+}
+.search-input {
+  width: 280px;
+  border: 1px solid #4a556c;
+  color: #041434;
+
+}
+
+.filter-option option{
+  color: #4a556c;
+  font-family: 'Inter', sans-serif;
+ 
+}
+
+.search-btn {
+  width: 100px;
+  background-color: #6a758a;
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+  font-family: "Inter", sans-serif;
+  border: none;
+  border-radius: 2px;
+}
+
+.search-btn:hover {
+  background-color: #041434;
+
 }

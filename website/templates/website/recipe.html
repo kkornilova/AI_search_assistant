@@ -24,12 +24,35 @@
             {% if value == "calories"%}
                 <p class="value-desc">KCAL</p>
             {% else %}
-                <p class="value-desc">GRAMM</p>
+                <p class="value-desc">GRAMS</p>
             {% endif %}
         </div>
         {% endfor %}
     </div>
-    {% include "website/includes/ingredients.html" %}
+
+    <div class="description">
+        <div class="ingrd-menu">
+            <ul class="ingrd-menu">
+                {% include "website/includes/ingredients.html" %}
+            </ul>
+        </div>
+        <div class="image-container">
+            <img class="recipe-img"src="{{recipe.image}}" alt="dish" />
+        </div>
+    </div>
+
+    <div class="instructions">
+        <p class="instructions-title">RECIPE INSTRUCTIONS</p>
+        <ul class="steps">
+            {% for step in instructions%}
+            <li class="step">
+                <span class="step-number">{{ step.number }}</span>
+                <p class="step-text">{{ step.step }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    
 
 
 {% endblock %}
