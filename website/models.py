@@ -6,14 +6,26 @@ from django.db import models
 class MealType(models.Model):
     name = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.name
+
 
 class CuisineType(models.Model):
     name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
 
 
 class DietType(models.Model):
     name = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.name
+
 
 class IntoleranceType(models.Model):
     name = models.CharField(max_length=70)
+
+    def __str__(self):
+        return self.name
