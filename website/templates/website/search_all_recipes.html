@@ -14,13 +14,27 @@ Search
     <h1 id="title">Find What <span class="highlight-span">Suits</span> You</h1>
     <p id="tagline">Unleash Flavorful Moments</p>
   </div> 
-  <form action={% url 'website:search_all_recipes'%} method="GET">
+  <form class="form" action={% url 'website:search_all_recipes'%} method="GET">
     {% for field in form %}
-      <div class="fieldWrapper">
-        {{ field }}
-      </div>
+      {% if field.name == "recipe_name" %}
+        <div class="search-field"> 
+          {{ field }}
+          <input class="search-btn" type="submit" value="Search">
+        </div>
+      {% endif %}
     {% endfor %}
-    <input class="search-btn" type="submit" value="Search">
+
+    <div class="checkbox-fields">
+      {% for field in form %}
+        {% if field.name != "recipe_name" %}
+          <div class="fieldWrapper">
+            <label class="filter-label">{{ field.label }}</label>
+            {{ field }}
+          </div>
+        {% endif %}
+      {% endfor %}
+      </div>
+   
   </form>
 
   <div class="recipes-group">

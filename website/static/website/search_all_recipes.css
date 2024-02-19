@@ -38,12 +38,6 @@ div.btn-group {
 
 }
 
-.scroll-menu {
-  overflow-y: scroll;
-  height: 200px;
-
-}
-
 
 .dropdown-toggle {
   color: #041434;
@@ -57,29 +51,85 @@ div.btn-group {
 }
 
 
-.dropdown-item {
-  color: #4a556c;
-  font-family: 'Inter', sans-serif;
- 
+.search-field{
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
 }
 
-.filter-btn {
-  width: 100px;
-  /* margin-left: 20px; */
+.search-input {
+  width: 550px;
+  height: 40px;
+  border: 1px solid #dbdee6;
+  color: #041434;
+  border-radius: 2px;
+  padding-left: 10px;
+
+}
+
+.search-input::placeholder {
+  color: #6a758a;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.search-btn {
+  width: 130px;
   background-color: #6a758a;
-  cursor: pointer;
   color: white;
   font-size: 16px;
   font-family: "Inter", sans-serif;
   border: none;
   border-radius: 2px;
-
+  margin-left: 30px;
 }
 
-.filter-btn:hover {
+.search-btn:hover {
   background-color: #041434;
 
 }
+
+.checkbox-fields {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+.fieldWrapper {
+  margin-right: 20px;
+  display: flex;
+}
+
+.filter-label {
+  color: #6a758a;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  margin-right: 10px;
+}
+
+.filter-item div {
+  padding-left: 10px;
+  padding-top: 3px;
+  color: #6a758a;
+  font-family: "Inter", sans-serif;
+
+} 
+/* .filter-item {
+ */
+
+#id_intolerance, #id_diet,
+#id_meal, #id_cuisine{
+  border:1px solid #dbdee6; 
+  width:200px;
+  height: 160px; 
+  overflow-y: scroll;
+  border-radius: 2px;
+
+  
+}
+
 
 .recipes-group {
   width: 100%;
@@ -205,55 +255,4 @@ div.btn-group {
   color: #4a556c;
   border: 1px solid #4a556c;
   font-weight: 600;
-}
-
-form {
-  display: flex;
-  justify-content: center;
-  margin-top: 50px;
-}
-
-.fieldWrapper {
-  margin-right: 20px;
-}
-
-
-
-.form-item {
-  height: 35px;
-  color: #041434;
-  font-family: "Inter", sans-serif;
-  font-weight: 400;
-  border: 1px solid #dbdee6;
-  padding: 5px;
-  border-radius: 4px;
-  width: 150px;
-}
-.search-input {
-  width: 280px;
-  border: 1px solid #4a556c;
-  color: #041434;
-
-}
-
-.filter-option option{
-  color: #4a556c;
-  font-family: 'Inter', sans-serif;
- 
-}
-
-.search-btn {
-  width: 100px;
-  background-color: #6a758a;
-  cursor: pointer;
-  color: white;
-  font-size: 16px;
-  font-family: "Inter", sans-serif;
-  border: none;
-  border-radius: 2px;
-}
-
-.search-btn:hover {
-  background-color: #041434;
-
 }

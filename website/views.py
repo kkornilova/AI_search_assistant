@@ -10,28 +10,23 @@ def index(request):
 
 
 def search_all_recipes(request):
-    if any(request.GET):
-        form = SearchForm(initial=request.GET)
-        search_result = utils.user_search(request.GET)
-        recipes_all_info = utils.get_many_recipes_info_by_id(search_result)
-        recipes_concise_info = utils.extract_many_recipes_concise_info(
-            recipes_all_info)
-        recipes_concise_info = utils.extract_many_recipes_ingredients(
-            recipes_concise_info)
+    request_form = {"recipe_name": request.GET.get("recipe_name"),
+                    "cuisine":  request.GET.getlist("cuisine"),
+                    "meal":  request.GET.getlist("meal"),
+                    "diet":  request.GET.getlist("diet"),
+                    "intolerance":  request.GET.getlist("intolerance"),
+                    }
 
-        return render(request, 'website/search_all_recipes.html', {"form": form, "recipes": recipes_concise_info})
+    form = SearchForm(initial=request_form)
 
-    recipes = utils.get_random_recipes(15)
-    recipes_concise_info = utils.extract_many_recipes_concise_info(recipes)
+    search_result = utils.user_search(request_form)
+    recipes_all_info = utils.get_many_recipes_info_by_id(search_result)
+    recipes_concise_info = utils.extract_many_recipes_concise_info(
+        recipes_all_info)
     recipes_concise_info = utils.extract_many_recipes_ingredients(
         recipes_concise_info)
 
-    form = SearchForm()
-
-    return render(request, 'website/search_all_recipes.html', {
-        "recipes": recipes_concise_info,
-        "form": form
-    })
+    return render(request, 'website/search_all_recipes.html', {"form": form, "recipes": recipes_concise_info})
 
 
 def recipe_page(request, title, id):
