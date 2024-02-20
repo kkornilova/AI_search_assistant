@@ -15,15 +15,10 @@ Search
     <p id="tagline">Unleash Flavorful Moments</p>
   </div> 
   <form class="form" action={% url 'website:search_all_recipes'%} method="GET">
-    {% for field in form %}
-      {% if field.name == "recipe_name" %}
         <div class="search-field"> 
-          {{ field }}
+          {{ form.recipe_name }}
           <input class="search-btn" type="submit" value="Search">
         </div>
-      {% endif %}
-    {% endfor %}
-
     <div class="checkbox-fields">
       {% for field in form %}
         {% if field.name != "recipe_name" %}

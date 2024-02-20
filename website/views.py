@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from . import utils
-from .forms import SearchForm
+from .forms import SearchForm, CreateUserForm
 
 
 def index(request):
@@ -45,3 +45,14 @@ def recipe_page(request, title, id):
                                                    "recipe": recipe_concise_info,
                                                    "instructions": recipe_instructions,
                                                    "title": title_formatted})
+
+
+def register(request):
+    form = CreateUserForm()
+
+    if request.method == "POST":
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            return redirect("website:index")
+
+    return render(request, "website/register.html", {"form": form})

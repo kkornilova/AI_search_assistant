@@ -107,7 +107,7 @@ def user_search(request_params):
                          }
 
     params = {"apiKey": API_KEY,
-              "number": 20}
+              "number": 2}
     for k, v in search_params_map.items():
         if v:
             params[k] = v

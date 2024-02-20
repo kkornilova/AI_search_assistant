@@ -1,5 +1,7 @@
 from django import forms
 from .models import CuisineType, MealType, DietType, IntoleranceType
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 
 class SearchForm(forms.Form):
@@ -26,3 +28,10 @@ class SearchForm(forms.Form):
         choices=((type, type)
                  for type in IntoleranceType.objects.all().order_by("name")),
         widget=forms.CheckboxSelectMultiple(attrs={"class": "filter-item"}), required=False, label="Intolerance:")
+
+
+class CreateUserForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ["username", "first_name", "last_name",
+                  "email", "password1", "password2"]
