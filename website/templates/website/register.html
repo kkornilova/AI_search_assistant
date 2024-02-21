@@ -6,18 +6,23 @@ Sign in
 {% endblock %} 
 
 {% block css_files %}
-  {% comment %} <link rel="stylesheet" href="{% static "website/register.css" %}" /> {% endcomment %}
+  <link rel="stylesheet" href="{% static "website/register.css" %}" />
 {% endblock %}
 
 {% block content %}
+<div class="form-wrapper">
+  <form class="form" action='' method="POST">
+      {% csrf_token %}
+      <p class="title">Create an account</p>
+      {% for field in form %}
+          <label class="field-label">{{ field.label }} 
+            {{ field }}
+          </label>
+      {% endfor %}
+      <input class="create-account-btn" type="submit" value="Create an account">
+      {{ form.errors}}
+  </form>
 
-<form class="form" action={% url 'website:register-page'%} method="POST">
-    {% csrf_token %}
-    {% for field in form %}
-        {{ field.label }}
-        {{ field }}
-    {% endfor %}
-    <input class="search-btn" type="submit" value="Sign in">
-</form>
-    
+</div>
+
 {% endblock %} 
