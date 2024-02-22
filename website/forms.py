@@ -31,15 +31,14 @@ class SearchForm(forms.Form):
 
 
 class CreateUserForm(UserCreationForm):
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
+
     class Meta:
         model = User
         fields = ["username", "first_name", "last_name",
                   "email", "password1", "password2"]
         labels = {
-            "username": "Username",
-            "first_name": "First name",
-            "last_name": "Last name",
-            "email": "Email",
-            "password1": "Password",
-            "password2": "Password confirmation"
+            "email": "Email"
         }

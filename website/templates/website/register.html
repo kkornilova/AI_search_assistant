@@ -20,7 +20,16 @@ Sign in
           </label>
       {% endfor %}
       <input class="create-account-btn" type="submit" value="Create an account">
-      {{ form.errors}}
+      {% if form.errors %}
+       {% for field in form %}
+           {% for error in field.errors %} 
+              <div class="alert alert-danger">
+                   <strong>{{ error|escape }}</strong>
+              </div>
+           {% endfor %}
+       {% endfor %}
+    {% endif %}
+        
   </form>
 
 </div>
