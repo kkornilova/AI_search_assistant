@@ -1,0 +1,38 @@
+{% extends "website/base.html" %}
+{% load static %}
+
+{% block title %} 
+Log in
+{% endblock %} 
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static "website/login.css" %}" />
+{% endblock %}
+
+
+{% block content %}
+<div class="form-wrapper">
+  <form class="form" action='' method="POST">
+      {% csrf_token %}
+      <p class="title">Log in</p>
+      {% for field in form %}
+          <label class="field-label">{{ field.label }} 
+            {{ field }}
+          </label>
+      {% endfor %}
+      <input class="create-account-btn" type="submit" value="Create an account">
+      {% if form.errors %}
+       {% for field in form %}
+           {% for error in field.errors %} 
+              <div class="alert alert-danger">
+                   <strong>{{ error|escape }}</strong>
+              </div>
+           {% endfor %}
+       {% endfor %}
+    {% endif %}
+        
+  </form>
+
+</div>
+
+{% endblock %} 

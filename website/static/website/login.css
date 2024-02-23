@@ -1,0 +1,73 @@
+.title {
+    font-family: "Playfair Display", sans-serif;
+    color: #f97664;
+    font-size: 32px;
+    font-weight: 500;
+    text-align: center;
+    width: 100%;
+    margin-top: 40px;
+    margin-bottom: 40px;
+
+}
+
+.form-wrapper {
+    display: flex;
+    justify-content: center;
+    background-color: #041434;
+    width: 100%;
+    padding: 50px;
+}
+.form {
+    background-color: #ffff;
+    margin-top: 50px;
+    padding-bottom: 70px;
+    width: 450px;
+    /* height:fit-content; */
+    display: grid;
+    justify-content: center;
+    border-radius: 2px;
+}
+.field-label {
+    display: flex;
+    flex-direction: column;
+    
+    color: #6a758a;
+    text-decoration: none;
+    margin-bottom: 0;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+
+
+}
+
+.login-form {
+    border: none;
+    border-bottom: 1px solid #dbdee6 ;
+    margin-bottom: 15px;
+    height: 30px;
+    width: 300px;
+
+}
+
+.create-account-btn {
+    width: 300px;
+    height: 40px;
+    background-color: #6a758a;
+    color: white;
+    font-size: 16px;
+    font-family: "Inter", sans-serif;
+    border: none;
+    border-radius: 2px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+  }
+  
+  .create-account-btn:hover {
+    background-color: #041434;
+  
+  }
+
+.alert {
+    width: 300px;
+}

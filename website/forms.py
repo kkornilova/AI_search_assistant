@@ -1,6 +1,6 @@
 from django import forms
 from .models import CuisineType, MealType, DietType, IntoleranceType
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 
 
@@ -42,3 +42,10 @@ class CreateUserForm(UserCreationForm):
         labels = {
             "email": "Email"
         }
+
+
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(
+        widget=forms.TextInput(attrs={"class": "login-form"}))
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={"class": "login-form"}))
