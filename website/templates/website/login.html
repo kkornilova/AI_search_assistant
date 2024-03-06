@@ -20,16 +20,16 @@ Log in
             {{ field }}
           </label>
       {% endfor %}
-      <input class="create-account-btn" type="submit" value="Create an account">
-      {% if form.errors %}
-       {% for field in form %}
-           {% for error in field.errors %} 
+      <input class="login-btn" type="submit" value="Log in">
+      {% comment %} {% if form.error_messages  %} {% endcomment %}
+       {% comment %} {% for field in form %} {% endcomment %}
+           {% for message in messages  %} 
               <div class="alert alert-danger">
-                   <strong>{{ error|escape }}</strong>
-              </div>
+                   <strong>{{ message|escape }}</strong>
+              </div> 
            {% endfor %}
-       {% endfor %}
-    {% endif %}
+       {% comment %} {% endfor %} {% endcomment %}
+    {% comment %} {% endif %} {% endcomment %}
         
   </form>
 

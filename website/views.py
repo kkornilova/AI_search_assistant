@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate
-
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from . import utils
 from .forms import SearchForm, CreateUserForm, LoginForm
+from .models import UserSavedRecipeLink
+import json
 
 
 def index(request):
@@ -26,6 +29,15 @@ def search_all_recipes(request):
         recipes_all_info)
     recipes_concise_info = utils.extract_many_recipes_ingredients(
         recipes_concise_info)
+
+    if request.body and request.user.is_authenticated:
+        json_data = json.loads(request.body)
+        recipe_id = json_data.get("recipe_id")
+        user_id = int(request.user.id)
+        user_saved_recipes = UserSavedRecipeLink.objects.filter(
+            user_id=user_id)
+
+        # return JsonResponse({"recipe_id": recipe_id})
 
     return render(request, 'website/search_all_recipes.html', {"form": form, "recipes": recipes_concise_info})
 
@@ -60,15 +72,36 @@ def register(request):
     return render(request, "website/register.html", {"form": form})
 
 
-def login(request):
-    form = LoginForm()
-    if request.method == "POST":
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(request, username, password)
-            if user:
-                return render(request, "website/register.html", {"form": form})
+def login_page(request):
 
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect("website:profile-page")
+        else:
+            messages.info(request, "User name OR password is incorrect")
+
+    form = LoginForm()
     return render(request, "website/login.html", {"form": form})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect("website:index")
+
+
+@login_required
+def profile_page(request):
+    user_id = request.user.id
+    user_recipes = UserSavedRecipeLink.objects.filter(user_id=user_id)
+    if user_recipes:
+        context = user_recipes
+        return render(request, "website/profile.html", {"context": context})
+
+    else:
+        context = "You don't have any favorite recipes yet"
+        return render(request, "website/profile.html", {"context": context})

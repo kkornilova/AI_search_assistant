@@ -1,0 +1,17 @@
+{% extends "website/base.html" %}
+
+{% load static %}
+
+{% block title %} 
+Profile
+{% endblock %} 
+
+{% block css_files %}
+  {% comment %} <link rel="stylesheet" href="{% static "website/profile.css" %}" /> {% endcomment %}
+{% endblock %}
+
+{% block content %}
+  {% if context %}
+    <p>{{ context }}</p>
+  {%endif%}
+{% endblock %} 

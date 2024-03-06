@@ -41,6 +41,7 @@ Search
           </div>
           <div class="col-md-8">
             <div class="card-body">
+              {% csrf_token %}
               <a class="card-title" href="{% url "website:recipe-page" title=recipe.title|slugify id=recipe.id %}">{{ recipe.title }}</a>
 
               <div class="card-text">
@@ -57,13 +58,34 @@ Search
                 <p>🥗{{ recipe.servings }} servings  ⏱️{{recipe.ready_in_minutes}} minutes</p>
               </div>
             </div>
-            <a class="btn add-recipe" href="#" role="button">Add to recipe book</a>
+            <button data-recipe-id={{recipe.id}} class="btn add-recipe" id="add" onclick="">Add to recipe book</button>
           </div>
         </div>
       </div>
       {% endfor %}
   </div>
-
 {% endblock %} 
+
+{% block script %}
+<script type="text/javascript">
+  let btn = document.querySelector("#add")  
+  btn.addEventListener("click", addRecipe)
+
+  function addRecipe(e){
+  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+  let recipe_id = event.target.getAttribute("data-recipe-id")
+  data = {recipe_id}
+
+  fetch("{% url "website:search_all_recipes" %}", {
+  method:'POST',
+  headers:{
+   'Content-Type':'application/json',
+   'X-CSRFToken':csrftoken,
+  }, 
+  body:JSON.stringify(data)
+ })
+  }
+</script>
+{% endblock %}
 
 
