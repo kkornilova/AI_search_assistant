@@ -68,8 +68,10 @@ Search
 
 {% block script %}
 <script type="text/javascript">
-  let btn = document.querySelector("#add")  
-  btn.addEventListener("click", addRecipe)
+  let btns = document.querySelectorAll("#add")  
+  btns.forEach((btn) => {
+    btn.addEventListener("click", addRecipe);
+  });  
 
   function addRecipe(e){
   const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value

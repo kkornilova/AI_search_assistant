@@ -31,13 +31,7 @@ def search_all_recipes(request):
         recipes_concise_info)
 
     if request.body and request.user.is_authenticated:
-        json_data = json.loads(request.body)
-        recipe_id = json_data.get("recipe_id")
-        user_id = int(request.user.id)
-        user_saved_recipes = UserSavedRecipeLink.objects.filter(
-            user_id=user_id)
-
-        # return JsonResponse({"recipe_id": recipe_id})
+        utils.add_recipe_to_saved(request)
 
     return render(request, 'website/search_all_recipes.html', {"form": form, "recipes": recipes_concise_info})
 
@@ -73,7 +67,6 @@ def register(request):
 
 
 def login_page(request):
-
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")

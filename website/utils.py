@@ -1,6 +1,8 @@
 import os
 from dotenv import load_dotenv
 import requests
+import json
+from .models import UserSavedRecipeLink
 
 load_dotenv()
 
@@ -115,3 +117,14 @@ def user_search(request_params):
     response = requests.get(BASE_URL + SEARCH_URL, params=params).json()
     recipes = response["results"]
     return recipes
+
+
+def add_recipe_to_saved(request):
+    json_data = json.loads(request.body)
+    recipe_id = int(json_data.get("recipe_id"))
+    user_id = int(request.user.id)
+    user_saved_recipes = UserSavedRecipeLink.objects.filter(
+        user_id=user_id, recipe_id=recipe_id)
+    if not user_saved_recipes:
+        favorite = UserSavedRecipeLink.objects.create(
+            user_id=user_id, recipe_id=recipe_id)
