@@ -58,7 +58,11 @@ Search
                 <p>🥗{{ recipe.servings }} servings  ⏱️{{recipe.ready_in_minutes}} minutes</p>
               </div>
             </div>
+            {% if recipe.is_saved %}
+            <button class="btn added-recipe">Added to recipe book</button>
+            {% else %}
             <button data-recipe-id={{recipe.id}} class="btn add-recipe" id="add" onclick="">Add to recipe book</button>
+            {% endif %}
           </div>
         </div>
       </div>
@@ -70,10 +74,13 @@ Search
 <script type="text/javascript">
   let btns = document.querySelectorAll("#add")  
   btns.forEach((btn) => {
-    btn.addEventListener("click", addRecipe);
-  });  
+    btn.addEventListener("click", (event) => {
+      addRecipe(event, btn);
+    });
+  });
 
-  function addRecipe(e){
+  function addRecipe(e, btn){
+  btn.disabled = true
   const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
   let recipe_id = event.target.getAttribute("data-recipe-id")
   data = {recipe_id}

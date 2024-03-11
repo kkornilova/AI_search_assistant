@@ -47,13 +47,14 @@ def get_recipe_nutrition(recipe_id):
     return nutrition
 
 
-def extract_recipe_info(recipe):
+def extract_recipe_info(recipe, user_id):
     recipe_detail = {"id": recipe["id"],
                      "title": recipe["title"],
                      "image": recipe["image"],
                      "ready_in_minutes": recipe["readyInMinutes"],
                      "servings": recipe["servings"],
-                     "ingredients": recipe["extendedIngredients"]
+                     "ingredients": recipe["extendedIngredients"],
+                     "is_saved": check_user_saved_recipe(user_id, recipe["id"])
                      }
     return recipe_detail
 
@@ -64,9 +65,9 @@ def get_many_recipes_info_by_id(recipes_id_list):
     return recipes_all_info
 
 
-def extract_many_recipes_concise_info(recipes_info_list):
+def extract_many_recipes_concise_info(recipes_info_list, user_id):
     recipes_concise_info = [extract_recipe_info(
-        recipe) for recipe in recipes_info_list]
+        recipe, user_id) for recipe in recipes_info_list]
     return recipes_concise_info
 
 
@@ -100,31 +101,32 @@ def get_recipe_instructions(recipe_id):
 
 
 def user_search(request_params):
-    search_params_map = {"query": request_params.get("recipe_name"),
-                         "cuisine": request_params.get("cuisine"),
-                         "diet": request_params.get("diet"),
-                         "intolerances": request_params.get("intolerances"),
-                         "type": request_params.get("meal")
-
-                         }
 
     params = {"apiKey": API_KEY,
-              "number": 2}
-    for k, v in search_params_map.items():
-        if v:
-            params[k] = v
+              "number": 2,
+              "query": request_params.get("recipe_name"),
+              "cuisine": request_params.get("cuisine"),
+              "diet": request_params.get("diet"),
+              "intolerances": request_params.get("intolerance"),
+              "type": request_params.get("meal")}
 
     response = requests.get(BASE_URL + SEARCH_URL, params=params).json()
     recipes = response["results"]
     return recipes
 
 
+def check_user_saved_recipe(user_id, recipe_id):
+    user_saved_recipes = UserSavedRecipeLink.objects.filter(
+        user_id=user_id, recipe_id=recipe_id)
+
+    return True if user_saved_recipes else False
+
+
 def add_recipe_to_saved(request):
     json_data = json.loads(request.body)
     recipe_id = int(json_data.get("recipe_id"))
     user_id = int(request.user.id)
-    user_saved_recipes = UserSavedRecipeLink.objects.filter(
-        user_id=user_id, recipe_id=recipe_id)
-    if not user_saved_recipes:
+    is_saved = check_user_saved_recipe(user_id, recipe_id)
+    if not is_saved:
         favorite = UserSavedRecipeLink.objects.create(
             user_id=user_id, recipe_id=recipe_id)

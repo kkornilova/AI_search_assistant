@@ -14,6 +14,7 @@ def index(request):
 
 
 def search_all_recipes(request):
+    user_id = int(request.user.id)
     request_form = {"recipe_name": request.GET.get("recipe_name"),
                     "cuisine":  request.GET.getlist("cuisine"),
                     "meal":  request.GET.getlist("meal"),
@@ -26,7 +27,7 @@ def search_all_recipes(request):
     search_result = utils.user_search(request_form)
     recipes_all_info = utils.get_many_recipes_info_by_id(search_result)
     recipes_concise_info = utils.extract_many_recipes_concise_info(
-        recipes_all_info)
+        recipes_all_info, user_id)
     recipes_concise_info = utils.extract_many_recipes_ingredients(
         recipes_concise_info)
 

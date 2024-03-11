@@ -237,7 +237,7 @@ div.btn-group {
   font-weight: 600;
 }
 
-.add-recipe {
+.add-recipe, .added-recipe {
   width: 50%;
   margin-top: 10px;
   margin-left: 15px;
@@ -254,3 +254,8 @@ div.btn-group {
   border: 1px solid #4a556c;
   font-weight: 600;
 }
+
+.disabled, .added-recipe{
+  pointer-events: none;
+}
+
