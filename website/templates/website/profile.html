@@ -7,11 +7,12 @@ Profile
 {% endblock %} 
 
 {% block css_files %}
-  {% comment %} <link rel="stylesheet" href="{% static "website/profile.css" %}" /> {% endcomment %}
+  <link rel="stylesheet" href="{% static "website/profile.css" %}" />
+  <link rel="stylesheet" href="{% static "website/includes/recipe_card.css" %}"/>
 {% endblock %}
 
 {% block content %}
-  {% if context %}
-    <p>{{ context }}</p>
-  {%endif%}
+  <div class="row row-cols-1 row-cols-md-1 g-4">
+    {% include "website/includes/recipe_card.html" %}
+  </div>
 {% endblock %} 

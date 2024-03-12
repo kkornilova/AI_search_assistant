@@ -92,9 +92,17 @@ def logout_view(request):
 def profile_page(request):
     user_id = request.user.id
     user_recipes = UserSavedRecipeLink.objects.filter(user_id=user_id)
+
     if user_recipes:
-        context = user_recipes
-        return render(request, "website/profile.html", {"context": context})
+        recipes_ids = [int(link.recipe_id) for link in user_recipes]
+        recipes_all_info = [utils.get_one_recipe_info_by_id(
+            recipe_id) for recipe_id in recipes_ids]
+        recipes_concise_info = utils.extract_many_recipes_concise_info(
+            recipes_all_info, user_id)
+        recipes_concise_info = utils.extract_many_recipes_ingredients(
+            recipes_concise_info)
+
+        return render(request, "website/profile.html", {"recipes": recipes_concise_info})
 
     else:
         context = "You don't have any favorite recipes yet"
