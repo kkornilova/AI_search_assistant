@@ -14,7 +14,8 @@ def index(request):
 
 
 def search_all_recipes(request):
-    user_id = int(request.user.id)
+    if request.user.id:
+        user_id = int(request.user.id)
     request_form = {"recipe_name": request.GET.get("recipe_name"),
                     "cuisine":  request.GET.getlist("cuisine"),
                     "meal":  request.GET.getlist("meal"),
@@ -83,6 +84,7 @@ def login_page(request):
     return render(request, "website/login.html", {"form": form})
 
 
+@login_required
 def logout_view(request):
     logout(request)
     return redirect("website:index")
@@ -99,8 +101,6 @@ def profile_page(request):
             recipe_id) for recipe_id in recipes_ids]
         recipes_concise_info = utils.extract_many_recipes_concise_info(
             recipes_all_info, user_id)
-        recipes_concise_info = utils.extract_many_recipes_ingredients(
-            recipes_concise_info)
 
         return render(request, "website/profile.html", {"recipes": recipes_concise_info})
 

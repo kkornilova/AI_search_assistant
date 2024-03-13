@@ -9,9 +9,17 @@ Profile
 {% block css_files %}
   <link rel="stylesheet" href="{% static "website/profile.css" %}" />
   <link rel="stylesheet" href="{% static "website/includes/recipe_card.css" %}"/>
+  <link rel="stylesheet" href="{% static "website/base.css" %}"/>
 {% endblock %}
-
+{% block header%}
+<nav>
+  <a class="logout" href="{% url "website:logout-page" %}">Log out</a>
+</nav>
+{% endblock %}
 {% block content %}
+  <div class="title-section"> 
+    <h1 class="title">Your Favourite Recipes</h1>
+  </div>
   <div class="row row-cols-1 row-cols-md-1 g-4">
     {% include "website/includes/recipe_card.html" %}
   </div>

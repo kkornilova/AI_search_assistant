@@ -41,7 +41,7 @@ main {
 }
 
 
-#profile {
+#profile, .logout {
   color: #041434;
   font-family: "Inter", sans-serif;
   font-weight: 400;

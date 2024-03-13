@@ -25,6 +25,8 @@
     <nav>
       <a id="profile" href="{% url "website:profile-page" %}">Profile</a>
     </nav>
+    {% block header %}
+    {% endblock %}
   </header>
   <main>
     {% block content %}
