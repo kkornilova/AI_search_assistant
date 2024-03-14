@@ -6,6 +6,7 @@ from . import utils
 from .forms import SearchForm, CreateUserForm, LoginForm
 from .models import UserSavedRecipeLink
 import json
+from django.http import JsonResponse
 
 
 def index(request):
@@ -14,8 +15,13 @@ def index(request):
 
 
 def search_all_recipes(request):
-    if request.user.id:
-        user_id = int(request.user.id)
+    user_id = int(request.user.id) if request.user.id else None
+    if request.body and request.user.is_authenticated:
+        utils.add_recipe_to_saved(request)
+
+    elif request.body and not request.user.is_authenticated:
+        return JsonResponse({'redirected': 'true'})
+
     request_form = {"recipe_name": request.GET.get("recipe_name"),
                     "cuisine":  request.GET.getlist("cuisine"),
                     "meal":  request.GET.getlist("meal"),
@@ -31,10 +37,6 @@ def search_all_recipes(request):
         recipes_all_info, user_id)
     recipes_concise_info = utils.extract_many_recipes_ingredients(
         recipes_concise_info)
-
-    if request.body and request.user.is_authenticated:
-        utils.add_recipe_to_saved(request)
-
     return render(request, 'website/search_all_recipes.html', {"form": form, "recipes": recipes_concise_info})
 
 
