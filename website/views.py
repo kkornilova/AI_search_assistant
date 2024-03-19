@@ -41,10 +41,11 @@ def search_all_recipes(request):
 
 
 def recipe_page(request, title, id):
+    user_id = int(request.user.id) if request.user.id else None
     recipe_all_info = utils.get_one_recipe_info_by_id(id)
 
     recipe_nutrition = utils.get_recipe_nutrition(id)
-    recipe_concise_info = utils.extract_recipe_info(recipe_all_info)
+    recipe_concise_info = utils.extract_recipe_info(recipe_all_info, user_id)
 
     recipe_concise_info["ingredients"] = utils.extract_recipe_ingredients(
         recipe_concise_info)

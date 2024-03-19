@@ -6,7 +6,9 @@
 {% endblock %} 
 
 {% block css_files %}
-  <link rel="stylesheet" href="{% static "website/recipe.css" %}" />
+  <link rel="stylesheet" href="{% static "website/includes/add_recipe_btn.css" %}" />
+  <link rel="stylesheet" href="{% static "website/recipe.css" %}"/>
+
 {% endblock %}
 
 {% block content %}
@@ -36,8 +38,13 @@
                 {% include "website/includes/ingredients.html" %}
             </ul>
         </div>
-        <div class="image-container">
+        <div class="image-btn-container">
             <img class="recipe-img"src="{{recipe.image}}" alt="dish" />
+            {% if recipe.is_saved %}
+            <button class="btn added-recipe">Added to recipe book</button>
+            {% else %}
+            <button data-recipe-id={{recipe.id}} class="btn add-recipe" id="add" onclick="">Add to recipe book</button>
+            {% endif %}
         </div>
     </div>
 
@@ -54,5 +61,8 @@
     </div>
     
 
+{% endblock %}
 
+{% block script %}
+  {% include "website/includes/add_recipe_btn.html" %}
 {% endblock %}

@@ -1,0 +1,32 @@
+<script type="text/javascript">
+const btns = document.querySelectorAll("#add")  
+  btns.forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+      addRecipe(event, btn);
+    });
+  });
+
+  async function addRecipe(e, btn){
+  btn.disabled = true
+  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+  const recipe_id = event.target.getAttribute("data-recipe-id")
+  data = {recipe_id}
+
+  const response = await fetch("{% url "website:search_all_recipes" %}", {
+  method:'POST',
+  headers:{
+   'Content-Type':'application/json',
+   'X-CSRFToken':csrftoken,
+  }, 
+  body:JSON.stringify(data)
+ })
+
+ const body = await response.json();
+
+ if(body.redirected) {
+  window.location.assign("{% url 'website:login-page' %}")
+
+ }
+
+}
+</script>

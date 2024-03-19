@@ -10,6 +10,7 @@ BASE_URL = os.getenv("BASE_URL")
 RANDOM_URL = os.getenv("RANDOM_URL")
 NUTRITION_URL = os.getenv("NUTRITION_URL")
 RECIPE_INFO_URL = os.getenv("RECIPE_INFO_URL")
+MANY_RECIPES_INFO_URL = os.getenv("MANY_RECIPES_INFO_URL")
 INSTRUCTIONS_URL = os.getenv("INSTRUCTIONS_URL")
 SIMILAR_URL = os.getenv("SIMILAR_URL")
 SEARCH_URL = os.getenv("SEARCH_URL")
@@ -59,10 +60,14 @@ def extract_recipe_info(recipe, user_id):
     return recipe_detail
 
 
-def get_many_recipes_info_by_id(recipes_id_list):
-    recipes_all_info = [get_one_recipe_info_by_id(
-        recipe["id"]) for recipe in recipes_id_list]
-    return recipes_all_info
+def get_many_recipes_info_by_id(recipes_list):
+    recipe_ids = ",".join([str(recipe["id"]) for recipe in recipes_list])
+    params = {"apiKey": API_KEY,
+              "ids": recipe_ids}
+    response = requests.get(
+        BASE_URL + MANY_RECIPES_INFO_URL, params=params).json()
+
+    return response
 
 
 def extract_many_recipes_concise_info(recipes_info_list, user_id):
@@ -103,7 +108,7 @@ def get_recipe_instructions(recipe_id):
 def user_search(request_params):
 
     params = {"apiKey": API_KEY,
-              "number": 2,
+              "number": 20,
               "query": request_params.get("recipe_name"),
               "cuisine": request_params.get("cuisine"),
               "diet": request_params.get("diet"),

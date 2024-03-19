@@ -237,25 +237,3 @@ div.btn-group {
   font-weight: 600;
 }
 
-.add-recipe, .added-recipe {
-  width: 50%;
-  margin-top: 10px;
-  margin-left: 15px;
-  background-color: white;
-  border: 1px solid #6a758a;
-  color: #6a758a;
-  padding: 5px;
-  border-radius: 2px;
-
-}
-
-.add-recipe:hover {
-  color: #4a556c;
-  border: 1px solid #4a556c;
-  font-weight: 600;
-}
-
-.disabled, .added-recipe{
-  pointer-events: none;
-}
-
