@@ -22,7 +22,6 @@
     margin-top: 50px;
     padding-bottom: 70px;
     width: 450px;
-    /* height:fit-content; */
     display: grid;
     justify-content: center;
     border-radius: 2px;
@@ -72,4 +71,9 @@
 
 .alert {
     width: 300px;
+}
+
+.login-link {
+    text-decoration: none;
+    text-align: center;
 }

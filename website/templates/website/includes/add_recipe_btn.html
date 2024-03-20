@@ -24,7 +24,7 @@ const btns = document.querySelectorAll("#add")
  const body = await response.json();
 
  if(body.redirected) {
-  window.location.assign("{% url 'website:login-page' %}")
+  window.location.assign("{% url 'website:register-page' %}")
 
  }
 

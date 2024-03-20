@@ -20,6 +20,7 @@ Sign in
           </label>
       {% endfor %}
       <input class="create-account-btn" type="submit" value="Create an account">
+      <a class="login-link" href="{% url "website:login-page" %}">Already have an account</a>
       {% if form.errors %}
        {% for field in form %}
            {% for error in field.errors %} 

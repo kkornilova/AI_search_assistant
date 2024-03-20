@@ -60,8 +60,8 @@ def extract_recipe_info(recipe, user_id):
     return recipe_detail
 
 
-def get_many_recipes_info_by_id(recipes_list):
-    recipe_ids = ",".join([str(recipe["id"]) for recipe in recipes_list])
+def get_many_recipes_info_by_id(recipe_ids_list):
+    recipe_ids = ",".join(str(id) for id in recipe_ids_list)
     params = {"apiKey": API_KEY,
               "ids": recipe_ids}
     response = requests.get(

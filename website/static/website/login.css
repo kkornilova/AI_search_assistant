@@ -71,3 +71,9 @@
 .alert {
     width: 300px;
 }
+
+.register-link {
+    text-decoration: none;
+    text-align: center;
+    
+}

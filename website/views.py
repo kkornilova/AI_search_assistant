@@ -32,7 +32,8 @@ def search_all_recipes(request):
     form = SearchForm(initial=request_form)
 
     search_result = utils.user_search(request_form)
-    recipes_all_info = utils.get_many_recipes_info_by_id(search_result)
+    recipe_ids = [recipe["id"] for recipe in search_result]
+    recipes_all_info = utils.get_many_recipes_info_by_id(recipe_ids)
     recipes_concise_info = utils.extract_many_recipes_concise_info(
         recipes_all_info, user_id)
     recipes_concise_info = utils.extract_many_recipes_ingredients(
@@ -60,6 +61,9 @@ def recipe_page(request, title, id):
 
 
 def register(request):
+    if request.user.is_authenticated:
+        return redirect("website:profile-page")
+
     form = CreateUserForm()
 
     if request.method == "POST":
@@ -72,6 +76,9 @@ def register(request):
 
 
 def login_page(request):
+    if request.user.is_authenticated:
+        return redirect("website:profile-page")
+
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
@@ -99,9 +106,8 @@ def profile_page(request):
     user_recipes = UserSavedRecipeLink.objects.filter(user_id=user_id)
 
     if user_recipes:
-        recipes_ids = [int(link.recipe_id) for link in user_recipes]
-        recipes_all_info = [utils.get_one_recipe_info_by_id(
-            recipe_id) for recipe_id in recipes_ids]
+        recipes_ids = [link.recipe_id for link in user_recipes]
+        recipes_all_info = utils.get_many_recipes_info_by_id(recipes_ids)
         recipes_concise_info = utils.extract_many_recipes_concise_info(
             recipes_all_info, user_id)
 

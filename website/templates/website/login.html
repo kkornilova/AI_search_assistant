@@ -21,6 +21,8 @@ Log in
           </label>
       {% endfor %}
       <input class="login-btn" type="submit" value="Log in">
+      <a class="register-link" href="{% url "website:register-page" %}">Do not have an account</a>
+
       {% comment %} {% if form.error_messages  %} {% endcomment %}
        {% comment %} {% for field in form %} {% endcomment %}
            {% for message in messages  %} 
