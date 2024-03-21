@@ -115,5 +115,7 @@ def profile_page(request):
 
     else:
         context = "You don't have any favorite recipes yet"
+        is_profile = True
         return render(request, "website/profile.html", {"recipes": None,
-                                                        "context": context})
+                                                        "context": context,
+                                                        "is_profile": is_profile})

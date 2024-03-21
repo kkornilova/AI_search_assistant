@@ -22,9 +22,11 @@
       <a id="search" href="{% url "website:search_all_recipes" %}">SEARCH</a>
       <a href="{% url "website:index" %}">ABOUT</a>
     </div>
-    <nav>
-      <a id="profile" href="{% url "website:profile-page" %}">Profile</a>
-    </nav>
+      {% if not is_profile%}
+        <a id="profile" href="{% url "website:profile-page" %}">Profile</a>
+      {% else %}
+        <a class="logout" href="{% url "website:logout-page" %}">Log out</a>
+      {% endif %}
     {% block header %}
     {% endblock %}
   </header>
