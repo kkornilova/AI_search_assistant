@@ -30,21 +30,6 @@
   color:  #f97664;
 }
 
-#button-link{
-    display: flex;
-    justify-content: center;
-    margin: 0 auto 60px;
-    padding: 15px;
-    width: 150px;
-    background-color: #041434;
-    cursor: pointer;
-    color: white;
-    font-size: 14px;
-    font-family: "Inter", sans-serif;
-    text-decoration: none;
-
-}
-
 .image-container {
     height: 450px;
     margin-bottom: 90px;

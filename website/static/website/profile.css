@@ -6,12 +6,24 @@
     padding: 64px 3% 35px 3%;   
 }
 
-.title {
+.title, .context {
     font-family: "Playfair Display", sans-serif;
     font-weight: 600;
     font-size: 56px;
     color: #041434;
   
+}
+
+.context {
+    font-size: 42px;
+}
+
+.subcotext {
+    font-family: "Playfair Display", sans-serif;
+    color: #f97664;
+    margin-top: 40px;
+    margin-bottom: 50px;
+
 }
 
 .row {

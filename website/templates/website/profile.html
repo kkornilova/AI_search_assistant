@@ -17,8 +17,15 @@ Profile
 </nav>
 {% endblock %}
 {% block content %}
-  <div class="title-section"> 
-    <h1 class="title">Your Favourite Recipes</h1>
+  <div class="title-section">
+    {%if not recipes %}
+      <h2 class="context">{{context|title}}</h2>
+      <h3 class="subcotext">Get To Know Our Treasures </h3>
+      <a class="find-recipe-btn-link" href="{% url "website:search_all_recipes" %}">Find a Recipe</a>
+
+    {% else %}
+      <h1 class="title">Your Favourite Recipes</h1>
+    {% endif %}
   </div>
   <div class="row row-cols-1 row-cols-md-1 g-4">
     {% include "website/includes/recipe_card.html" %}
