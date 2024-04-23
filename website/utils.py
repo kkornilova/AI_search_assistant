@@ -135,3 +135,9 @@ def add_recipe_to_saved(request):
     if not is_saved:
         favorite = UserSavedRecipeLink.objects.create(
             user_id=user_id, recipe_id=recipe_id)
+
+
+def extract_field_choices(model_name):
+    choices = ((type, type)
+               for type in model_name.objects.all().order_by("name"))
+    return choices

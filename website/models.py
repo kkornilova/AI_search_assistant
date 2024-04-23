@@ -32,5 +32,5 @@ class IntoleranceType(models.Model):
 
 
 class UserSavedRecipeLink(models.Model):
-    user_id = models.CharField(max_length=None, blank=False, null=False)
-    recipe_id = models.CharField(max_length=None, blank=False, null=False)
+    user_id = models.CharField(max_length=200, blank=False, null=False)
+    recipe_id = models.CharField(max_length=200, blank=False, null=False)

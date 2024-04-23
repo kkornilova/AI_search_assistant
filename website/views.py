@@ -4,13 +4,12 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from . import utils
 from .forms import SearchForm, CreateUserForm, LoginForm
-from .models import UserSavedRecipeLink
-import json
+from .models import UserSavedRecipeLink, CuisineType, MealType, DietType, IntoleranceType
 from django.http import JsonResponse
 
 
 def index(request):
-    recipes = utils.get_random_recipes(15)
+    recipes = utils.get_random_recipes(20)
     return render(request, 'website/index.html', {"recipes": recipes})
 
 
@@ -22,16 +21,15 @@ def search_all_recipes(request):
     elif request.body and not request.user.is_authenticated:
         return JsonResponse({'redirected': 'true'})
 
-    request_form = {"recipe_name": request.GET.get("recipe_name"),
-                    "cuisine":  request.GET.getlist("cuisine"),
-                    "meal":  request.GET.getlist("meal"),
-                    "diet":  request.GET.getlist("diet"),
-                    "intolerance":  request.GET.getlist("intolerance"),
-                    }
+    form = SearchForm(request.GET)
 
-    form = SearchForm(initial=request_form)
+    form.fields["cuisine"].choices = utils.extract_field_choices(CuisineType)
+    form.fields["meal"].choices = utils.extract_field_choices(MealType)
+    form.fields["diet"].choices = utils.extract_field_choices(DietType)
+    form.fields["intolerance"].choices = utils.extract_field_choices(
+        IntoleranceType)
 
-    search_result = utils.user_search(request_form)
+    search_result = utils.user_search(request.GET)
     recipe_ids = [recipe["id"] for recipe in search_result]
     recipes_all_info = utils.get_many_recipes_info_by_id(recipe_ids)
     recipes_concise_info = utils.extract_many_recipes_concise_info(
@@ -104,18 +102,18 @@ def logout_view(request):
 def profile_page(request):
     user_id = request.user.id
     user_recipes = UserSavedRecipeLink.objects.filter(user_id=user_id)
-
+    is_profile = True
     if user_recipes:
         recipes_ids = [link.recipe_id for link in user_recipes]
         recipes_all_info = utils.get_many_recipes_info_by_id(recipes_ids)
         recipes_concise_info = utils.extract_many_recipes_concise_info(
             recipes_all_info, user_id)
 
-        return render(request, "website/profile.html", {"recipes": recipes_concise_info})
+        return render(request, "website/profile.html", {"recipes": recipes_concise_info,
+                                                        "is_profile": is_profile})
 
     else:
         context = "You don't have any favorite recipes yet"
-        is_profile = True
         return render(request, "website/profile.html", {"recipes": None,
                                                         "context": context,
                                                         "is_profile": is_profile})
