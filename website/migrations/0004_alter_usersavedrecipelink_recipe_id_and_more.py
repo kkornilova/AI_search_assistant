@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('website', '0002_usersavedrecipelink'),
+        ('website', '0003_usersavedrecipelink'),
     ]
 
     operations = [

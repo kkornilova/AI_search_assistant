@@ -6,14 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('website', '0001_initial'),
+        ('website', '0002_data_migration'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='UserSavedRecipeLink',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('user_id', models.CharField()),
                 ('recipe_id', models.CharField()),
             ],
