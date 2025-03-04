@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
  web:
   build: .
@@ -9,7 +7,8 @@ services:
    - 8000:8000
   image: app:django
   container_name: django_container
-  command: python manage.py runserver 0.0.0.0:8000
+  command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000" # Run migrations at start and then start server
+
   env_file:
    - .env
   depends_on:
@@ -36,7 +35,7 @@ services:
   restart: always
   volumes:
     - elasticsearch_data:/usr/share/elasticsearch/data
-adminer:
+ adminer:
   env_file: .env
   image: adminer
   restart: always
