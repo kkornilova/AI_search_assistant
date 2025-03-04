@@ -14,14 +14,29 @@ services:
    - .env
   depends_on:
    - db
+   - elasticsearch
  db:
   image: postgres
   env_file: .env
+  container_name: postgres_db
+  restart: always
   ports:
    - 5432:5432
   volumes:
    - postgres_data:/var/lib/postgresql/data/
- adminer:
+ elasticsearch:
+  image: elasticsearch:8.16.3
+  env_file: .env
+  container_name: elasticsearch_container
+  ports:
+    - "9200:9200"
+  environment:
+    - discovery.type=single-node
+    - xpack.security.enabled=false
+  restart: always
+  volumes:
+    - elasticsearch_data:/usr/share/elasticsearch/data
+adminer:
   env_file: .env
   image: adminer
   restart: always
@@ -29,3 +44,4 @@ services:
    - 3333:8080
 volumes:
  postgres_data:
+ elasticsearch_data:
