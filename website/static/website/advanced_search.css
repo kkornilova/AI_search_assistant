@@ -1,0 +1,200 @@
+#advanced_search{
+    border-bottom: 1px solid #f97664;
+}
+
+
+.title-section {
+    text-align: center;
+    padding: 64px 3% 35px 3%;
+    
+}
+
+#title {
+  font-family: "Playfair Display", sans-serif;
+  font-weight: 600;
+  font-size: 56px;
+  color: #041434;
+
+}
+
+
+.highlight-span {
+  color:  #f97664;
+}
+
+#tagline {
+    color: #6a758a;
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    font-weight: 400;
+    font-family: "Inter", sans-serif;
+    margin-top: 30px;
+}
+
+
+div.btn-group {
+  display: flex;
+  justify-content: center;
+  margin: 50px 150px;
+
+}
+
+
+.dropdown-toggle {
+  color: #041434;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  margin-right: 25px;
+  border: 1px solid #dbdee6;
+  padding: 5px;
+
+  
+}
+
+.search-field{
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.search-input {
+  width: 550px;
+  height: 40px;
+  border: 1px solid #dbdee6;
+  color: #041434;
+  border-radius: 2px;
+  padding-left: 10px;
+
+}
+
+.search-input::placeholder {
+  color: #6a758a;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.search-btn {
+  width: 130px;
+  background-color: #6a758a;
+  color: white;
+  font-size: 16px;
+  font-family: "Inter", sans-serif;
+  border: none;
+  border-radius: 2px;
+  margin-left: 30px;
+}
+
+.search-btn:hover {
+  background-color: #041434;
+
+}
+
+.recipes-group {
+  width: 100%;
+  display: grid;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 90px;
+
+}
+
+.card {
+  width: 750px;
+  border: none;
+  
+}
+
+
+.card-title {
+  text-decoration: none;
+  color: #041434;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+
+}
+
+.card-title:hover {
+  text-decoration: 1px underline;
+}
+
+.card-text {
+  color: #4a556c;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  display: flex;
+  margin-top: 20px;
+
+}
+
+.pipe {
+  color: #dbdee6;
+}
+
+.btn-add-to-book{
+  width: 250px;
+  font-family: "Inter", sans-serif;
+  color: #6a758a;
+  border: 1px solid #dbdee6;
+  background-color: white;
+  margin: 15px 10px 10px 15px;
+  border-radius: 2px;
+  
+}
+
+.ingrd-btn {
+  border: none;
+  color: #4a556c;
+  padding: 0%;
+  font-size: 15px;
+}
+
+.ingrd-menu {
+  padding: 30px 30px;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  color: #4a556c;
+  font-size: 12px;
+  
+}
+
+.ingr-title {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  width: 350px;
+
+}
+
+.ingrd-item {
+  margin-bottom: 10px;
+  display: inline-flex;
+  width: 100%;
+
+}
+
+.underscore {
+  flex-grow: 1;
+  border-bottom: 1px solid #dbdee6;
+  height: 15px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.btn-go-to-recipe {
+  width: 100%;
+  margin-top: 15px;
+  background-color: white;
+  color:  #4a556c;
+  border: 1px solid #4a556c;
+  padding: 10px;
+  border-radius: 2px;
+
+}
+
+.btn-go-to-recipe:hover {
+  color: #f97664;
+  border: 1px solid #f97664;
+  font-weight: 600;
+}
+

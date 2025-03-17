@@ -1,0 +1,63 @@
+{% extends "website/base.html" %}
+{% load static %}
+
+{% block title %} 
+{{title|title}}
+{% endblock %} 
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static "website/includes/add_recipe_btn.css" %}" />
+  <link rel="stylesheet" href="{% static "website/recipe.css" %}"/>
+
+{% endblock %}
+
+{% block content %}
+    <div class="title-section">
+        <h1  class="title">{{ title|title }}</h1>
+    </div>
+
+    <div class="description">
+        <div class="ingrd-menu">
+            <ul class="ingrd-menu">
+                <p class="ingr-title"> INGREDIENTS </p>
+                {% for ingredient in recipe.ingredients%}
+                <li class="ingrd-item">{{ ingredient|capfirst }}<span class="underscore"></span></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="image-btn-container">
+            {% if recipe.image == 'None' %}
+            <img class="recipe-img"src="https://img.staticmb.com/mbcontent/images/crop/uploads/2023/4/ceramic-plates_0_1200.jpg" alt="dish" />
+
+            {% else %}
+            <img class="recipe-img"src="{{recipe.image}}" alt="dish" />
+
+            {% endif %}
+
+            {% if recipe.is_saved %}
+            <button class="btn added-recipe">Added to recipe book</button>
+            {% else %}
+            <button data-recipe-id={{recipe.id}} class="btn add-recipe" id="add" onclick="">Add to recipe book</button>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="instructions">
+        <p class="instructions-title">RECIPE INSTRUCTIONS</p>
+        <ul class="steps">
+
+            {% for step in recipe.instructions%}
+            <li class="step">
+                <p class="step-number">{{ forloop.counter }}.</p>
+                <p class="step-text">{{ step }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+
+{% endblock %}
+
+{% block script %}
+  {% include "website/includes/add_recipe_btn.html" %}
+{% endblock %}

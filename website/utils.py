@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import requests
 import json
 from .models import UserSavedRecipeLink
+from .elasticsearch_connection import get_elasticsearch_client
 
 load_dotenv()
 
@@ -16,6 +17,7 @@ SIMILAR_URL = os.getenv("SIMILAR_URL")
 SEARCH_URL = os.getenv("SEARCH_URL")
 
 API_KEY = os.getenv("API_KEY")
+es = get_elasticsearch_client()
 
 
 def get_random_recipes(quantity):
@@ -108,7 +110,7 @@ def get_recipe_instructions(recipe_id):
 def user_search(request_params):
 
     params = {"apiKey": API_KEY,
-              "number": 20,
+              "number": 1,
               "query": request_params.get("recipe_name"),
               "cuisine": request_params.get("cuisine"),
               "diet": request_params.get("diet"),
@@ -141,3 +143,86 @@ def extract_field_choices(model_name):
     choices = ((type, type)
                for type in model_name.objects.all().order_by("name"))
     return choices
+
+
+def get_recipes_from_elastic(user_input_vector):
+    index_name = 'recipes'
+    recipes = []
+
+    query = [{
+        "field": "ingredients_vector",
+        "query_vector": user_input_vector,
+        "k": 10,
+        "num_candidates": 500,
+        "boost": 0.7
+
+    },
+        {
+        "field": "recipe_name_vector",
+        "query_vector": user_input_vector,
+        "k": 10,
+        "num_candidates": 500,
+        "boost": 0.3
+    }]
+    res = es.search(index=index_name, knn=query, source=[
+                    "recipe_name", "ingredients", "steps", "image"])
+
+    hits = res.body['hits']['hits']
+    recipes = extract_recipe_info_from_elastic(hits)
+
+    return recipes
+
+
+def get_random_recipes_from_elastic():
+    index_name = 'recipes'
+
+    query = {
+        "size": 20,
+        "query": {
+            "function_score": {
+                "random_score": {}
+            }
+        }
+    }
+
+    res = es.search(index=index_name, body=query, source=[
+                    "recipe_name", "ingredients", "steps", "image"])
+    hits = res.body['hits']['hits']
+    recipes = extract_recipe_info_from_elastic(hits)
+    return recipes
+
+
+def extract_recipe_info_from_elastic(hits):
+    recipes = []
+
+    for hit in hits:
+        recipes.append({"title": hit["_source"]["recipe_name"],
+                        "ingredients": json.loads(hit["_source"]["ingredients"]),
+                        "instructions": hit["_source"]["steps"],
+                        "image": hit["_source"]["image"],
+                        "id": hit["_id"]})
+    return recipes
+
+
+def extract_recipe_info_from_elastic_by_id(recipe_id):
+    index_name = 'recipes'
+
+    res = es.get(index=index_name, id=recipe_id, source=[
+        "recipe_name", "ingredients", "steps", "image"])
+    try:
+        res = es.get(index=index_name, id=recipe_id, source=[
+            "recipe_name", "ingredients", "steps", "image"])
+
+        recipe_info = res.body['_source']
+        recipe = {
+            "title": recipe_info["recipe_name"],
+            "ingredients": json.loads(recipe_info["ingredients"]),
+            "instructions": json.loads(recipe_info["steps"]),
+            "image": recipe_info["image"],
+            "id": res.body["_id"]
+        }
+
+        return recipe
+    except Exception as e:
+        print("ERROR:", e)
+        return None

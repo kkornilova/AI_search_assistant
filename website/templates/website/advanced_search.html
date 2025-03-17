@@ -1,0 +1,74 @@
+{% extends "website/base.html" %}
+{% load static %}
+
+{% block title %} 
+AI Search
+{% endblock %} 
+
+{% block css_files %}
+  <link rel="stylesheet" href="{% static "website/advanced_search.css" %}" />
+  <link rel="stylesheet" href="{% static "website/includes/add_recipe_btn.css" %}" />
+
+{% endblock %}
+
+{% block content %}
+<div class="title-section"> 
+    <h1 id="title">Find What <span class="highlight-span">Suits</span> You</h1>
+    <p id="tagline">Try our new advanced search powered by artificial intelligence </p>
+  </div> 
+  <form class="form" action={% url 'website:advanced-search'%} method="GET">
+    <div class="search-field"> 
+      {{ form.search_input }}
+      <input class="search-btn" type="submit" value="Search">
+    </div>
+</form>
+
+<div class="recipes-group">
+  {% for recipe in recipes %}
+  <div class="card mb-3">
+    <div class="row g-0">
+      <div class="col-md-4">
+        {% if recipe.image == 'None' %}
+        <img src="https://img.staticmb.com/mbcontent/images/crop/uploads/2023/4/ceramic-plates_0_1200.jpg" class="img-fluid rounded-start" alt="dish">
+        {% else %}
+        
+        <img src={{ recipe.image }} class="img-fluid rounded-start" alt="dish">
+        {% endif %}
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          {% csrf_token %}
+          <a class="card-title" href="{% url "website:elastic-recipe-page" title=recipe.title|slugify id=recipe.id %}">{{ recipe.title }}</a>
+
+          <div class="card-text">
+            <div class="dropdown">
+              <button class="btn dropdown-toggle ingrd-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ recipe.ingredients|length}}  Ingredients</button>
+                <ul class="dropdown-menu ingrd-menu">
+                  <p class="ingr-title"> INGREDIENTS </p>
+                    {% for ingredient in recipe.ingredients%}
+                        <li class="ingrd-item">{{ ingredient|capfirst  }}<span class="underscore"></span> {{ ingredient.amount|cut:".0"}} {{ ingredient.unit|lower}}</li>
+                    {% endfor %}
+                 
+                  <a class="btn btn-go-to-recipe" href="{% url "website:elastic-recipe-page" title=recipe.title|slugify id=recipe.id %}" role="button">Go to recipe page</a>
+                </ul>
+              <span class="pipe">|</span>
+            </div>
+
+          </div>
+        </div>
+        {% if recipe.is_saved %}
+        <button class="btn added-recipe">Added to recipe book</button>
+        {% else %}
+        <button data-recipe-id={{recipe.id}} class="btn add-recipe" id="add" onclick="">Add to recipe book</button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %} 
+{% block script %}
+  {% include "website/includes/add_recipe_btn.html" %}
+{% endblock %}

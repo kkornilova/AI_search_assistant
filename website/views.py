@@ -3,13 +3,17 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from . import utils
-from .forms import SearchForm, CreateUserForm, LoginForm
+from .forms import SearchForm, CreateUserForm, LoginForm, AdvancedSearchForm
 from .models import UserSavedRecipeLink, CuisineType, MealType, DietType, IntoleranceType
 from django.http import JsonResponse
+from sentence_transformers import SentenceTransformer
+
+
+model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 
 
 def index(request):
-    recipes = utils.get_random_recipes(20)
+    recipes = utils.get_random_recipes(1)
     return render(request, 'website/index.html', {"recipes": recipes})
 
 
@@ -37,6 +41,34 @@ def search_all_recipes(request):
     recipes_concise_info = utils.extract_many_recipes_ingredients(
         recipes_concise_info)
     return render(request, 'website/search_all_recipes.html', {"form": form, "recipes": recipes_concise_info})
+
+
+def advanced_search(request):
+    user_id = int(request.user.id) if request.user.id else None
+    if request.body and request.user.is_authenticated:
+        utils.add_recipe_to_saved(request)
+
+    elif request.body and not request.user.is_authenticated:
+        return JsonResponse({'redirected': 'true'})
+
+    form = AdvancedSearchForm(request.GET)
+    user_input = request.GET.get("search_input")
+    if user_input:
+        user_input_vector = model.encode(user_input)
+        recipes = utils.get_recipes_from_elastic(user_input_vector)
+    else:
+        recipes = utils.get_random_recipes_from_elastic()
+
+    return render(request, 'website/advanced_search.html', {"form": form, 'recipes': recipes})
+
+
+def elastic_recipe_page(request, title, id):
+    user_id = int(request.user.id) if request.user.id else None
+    recipe = utils.extract_recipe_info_from_elastic_by_id(id)
+    if recipe:
+        return render(request, "website/elastic_recipe.html", {"recipe": recipe, "title": title})
+    else:
+        return render(request, 'website/index.html')
 
 
 def recipe_page(request, title, id):

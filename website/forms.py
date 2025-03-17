@@ -47,3 +47,9 @@ class LoginForm(AuthenticationForm):
         widget=forms.TextInput(attrs={"class": "login-form"}))
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={"class": "login-form"}))
+
+
+class AdvancedSearchForm(forms.Form):
+    search_input = forms.CharField(
+        max_length=200, required=False,
+        widget=forms.TextInput(attrs={"placeholder": "Enter any ingredients or dish name", "class": "search-input"}))
